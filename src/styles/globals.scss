@@ -1,4 +1,5 @@
 @use "variables";
+@use "mixins";
 
 * {
         box-sizing: border-box;
@@ -10,26 +11,31 @@ html,
 body {
         max-width: 100vw;
         overflow-x: hidden;
+        @include mixins.theme('background');
 }
 
-html[data-theme="light"] {
-        --primary-color: #{variables.$light_primary_color};
-        --text-color: #{variables.$light_text_color};
-        --text-secondary-color: #{variables.$light_secondary_text_color};
-        --secondary-color: #{variables.$light_secondary_color};
-        --background-color: #{variables.$light_background_color};
-        --accent-color: #{variables.$light_accent_color};
-        --error-color: #{variables.$error_color};
-        --success-color: #{variables.$success_color};
+@media (prefers-color-scheme: dark) { 
+        html {
+                --primary-color: #{variables.$dark_primary_color};
+                --text-color: #{variables.$dark_text_color};
+                --text-secondary-color: #{variables.$dark_secondary_text_color};
+                --secondary-color: #{variables.$dark_secondary_color};
+                --background-color: #{variables.$dark_background_color};
+                --accent-color: #{variables.$dark_accent_color};
+                --error-color: #{variables.$error_color};
+                --success-color: #{variables.$success_color};
+        }
 }
-      
-html[data-theme="dark"] {
-        --primary-color: #{variables.$dark_primary_color};
-        --text-color: #{variables.$dark_text_color};
-        --text-secondary-color: #{variables.$dark_secondary_text_color};
-        --secondary-color: #{variables.$dark_secondary_color};
-        --background-color: #{variables.$dark_background_color};
-        --accent-color: #{variables.$dark_accent_color};
-        --error-color: #{variables.$error_color};
-        --success-color: #{variables.$success_color};
+
+@media (prefers-color-scheme: light) { 
+        html {
+                --primary-color: #{variables.$light_primary_color};
+                --text-color: #{variables.$light_text_color};
+                --text-secondary-color: #{variables.$light_secondary_text_color};
+                --secondary-color: #{variables.$light_secondary_color};
+                --background-color: #{variables.$light_background_color};
+                --accent-color: #{variables.$light_accent_color};
+                --error-color: #{variables.$error_color};
+                --success-color: #{variables.$success_color};
+        }
 }

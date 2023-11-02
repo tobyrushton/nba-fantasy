@@ -1,0 +1,11 @@
+@use "../../styles/variables" as var;
+@use "../../styles/mixins" as mix;
+
+.searchbar {
+    @include mix.theme('secondary');
+    font-size: 1.5rem;
+    padding: .5rem 1rem;
+    width: 80vw;
+    border-radius: 5px;
+    border: 1px solid var.$accent_color;
+}
