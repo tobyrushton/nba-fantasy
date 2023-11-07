@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import PlayerBar from '../../src/components/playerbar/PlayerBar'
 import '@testing-library/jest-dom';
-import exp from 'constants';
 
 describe('<PlayerBar />', () => {
     const mockPlayer: player.IPlayer = {
