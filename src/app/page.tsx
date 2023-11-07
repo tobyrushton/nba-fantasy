@@ -1,8 +1,8 @@
+import { FC } from 'react'
 import styles from './page.module.scss'
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-    </main>
-  )
+const Home: FC = () => {
+    return <main className={styles.main} />
 }
+
+export default Home
