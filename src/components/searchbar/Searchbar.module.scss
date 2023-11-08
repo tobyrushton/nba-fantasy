@@ -1,6 +1,12 @@
 @use "../../styles/variables" as var;
 @use "../../styles/mixins" as mix;
 
+.form {
+    display: flex;
+    justify-content: center;
+    padding: .5rem 0;
+}
+
 .searchbar {
     @include mix.theme('secondary');
     font-size: 1.5rem;

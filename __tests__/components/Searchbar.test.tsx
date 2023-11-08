@@ -1,41 +1,49 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { usePathname, useSearchParams } from 'next/navigation'
 import Searchbar from '../../src/components/searchbar/Searchbar'
 import '@testing-library/jest-dom'
+import { use } from 'react'
 
 describe('<Searchbar />', () => {
     it('should render the searchbar', () => {
-        render(<Searchbar value="" onChange={jest.fn()}/>)
+        render(<Searchbar />)
         expect(screen.getByRole('textbox')).toBeInTheDocument()
     })
 
     it('should update the search value', () => {
-        let value = ''
-
-        const onChange = (val: string): void => {
-            value = val
-        }
-
-        render(<Searchbar value={value} onChange={onChange}/>)
+        render(<Searchbar />)
         const input = screen.getByRole('textbox')
         fireEvent.change(input, { target: { value: 'test' } })
-        expect(value).toBe('test')
+        expect(input).toHaveValue('test')
     })
 
     it('should clear the search value', () => {
-        let value = 'test'
-
-        const onChange = (val: string): void => {
-            value = val
-        }
-
-        render(<Searchbar value={value} onChange={onChange}/>)
+        render(<Searchbar />)
         const input = screen.getByRole('textbox')
         fireEvent.change(input, { target: { value: '' } })
-        expect(value).toBe('')
+        expect(input).toHaveValue('')
     })
 
-    it('should render the searchbar with a value', () => {
-        render(<Searchbar value="test" onChange={jest.fn()}/>)
-        expect(screen.getByRole('textbox')).toHaveValue('test')
+    it('should redirect on enter with correct search term', () => {
+        render(<Searchbar />)
+        const input = screen.getByRole('textbox')
+        fireEvent.change(input, { target: { value: 'Nikola' } })
+        fireEvent.submit(input)
+        expect(window.location.href).toBe('http://localhost/search?term=Nikola')
+    })
+
+    it('should start with the correct search state', () => {
+        window.location.href = 'http://localhost/search?term=Nikola'
+        render(<Searchbar />)
+        const input = screen.getByRole('textbox')
+        expect(input).toHaveValue('Nikola')
+    })
+
+    it('should not start with search state if not on search page', () => {
+        (usePathname as jest.Mock).mockReturnValueOnce('/')
+        ;(useSearchParams as jest.Mock).mockReturnValueOnce(new URLSearchParams('term=Nikola'))
+        render(<Searchbar />)
+        const input = screen.getByRole('textbox')
+        expect(input).toHaveValue('')
     })
 })
