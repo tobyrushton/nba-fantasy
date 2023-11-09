@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react'
 import PlayerBar from '../../src/components/playerbar/PlayerBar'
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom'
 
 describe('<PlayerBar />', () => {
     const mockPlayer: player.IPlayer = {
@@ -18,8 +18,8 @@ describe('<PlayerBar />', () => {
             conference: 'West',
             division: 'Northwest',
             full_name: 'Denver Nuggets',
-            name: 'Nuggets'
-        }
+            name: 'Nuggets',
+        },
     }
 
     const mockPlayerStats: player.IPlayerSeasonStats = {
@@ -44,16 +44,26 @@ describe('<PlayerBar />', () => {
         pts: 24.5,
         fg_pct: 0.632,
         fg3_pct: 0.383,
-        ft_pct: 0.822
+        ft_pct: 0.822,
     }
 
     it('should render the player bar', () => {
-        render(<PlayerBar player={mockPlayer} playerSeasonStats={mockPlayerStats} />)
+        render(
+            <PlayerBar
+                player={mockPlayer}
+                playerSeasonStats={mockPlayerStats}
+            />
+        )
         expect(screen.getByRole('link')).toBeInTheDocument()
     })
 
     it('should render the correct stats', () => {
-        render(<PlayerBar player={mockPlayer} playerSeasonStats={mockPlayerStats} />)
+        render(
+            <PlayerBar
+                player={mockPlayer}
+                playerSeasonStats={mockPlayerStats}
+            />
+        )
         expect(screen.getByLabelText('ppg')).toHaveTextContent('24.5')
         expect(screen.getByLabelText('reb')).toHaveTextContent('11.8')
         expect(screen.getByLabelText('ast')).toHaveTextContent('9.8')
@@ -61,11 +71,15 @@ describe('<PlayerBar />', () => {
         expect(screen.getByLabelText('blk')).toHaveTextContent('0.7')
         expect(screen.getByLabelText('fg')).toHaveTextContent('63.2%')
         expect(screen.getByLabelText('team')).toHaveTextContent('Nikola Jokic')
-    }
-    )
+    })
 
     it('link should have the correct href', () => {
-        render(<PlayerBar player={mockPlayer} playerSeasonStats={mockPlayerStats} />)
+        render(
+            <PlayerBar
+                player={mockPlayer}
+                playerSeasonStats={mockPlayerStats}
+            />
+        )
         expect(screen.getByRole('link')).toHaveAttribute('href', '/player/1')
     })
 })

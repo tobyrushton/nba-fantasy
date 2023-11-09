@@ -5,13 +5,14 @@
     @include mixins.theme('secondary');
     display: flex;
     flex-direction: row;
-    align-items: center;
+    justify-content: center;
     text-decoration: none;
     border-radius: 10px;
     padding: .5rem 1rem;
     height: 7rem;
     font-size: 2rem;
     gap: 2.5rem;
+    width: 80vw;
 
     p {
         display: flex;
@@ -19,6 +20,7 @@
         align-items: center;
         flex-direction: column;
         height: 100%;
+        text-align: center;
 
         span {
             font-size: 1rem;
@@ -30,6 +32,12 @@
     .playerBar {
         font-size: 1.5rem;
         gap: 2rem;
+
+        p {
+            span {
+                font-size: .75rem;
+            }
+        }
 
         p[aria-label='stl'] {
             display: none;
@@ -45,6 +53,12 @@
     .playerBar {
         font-size: 1rem;
         gap: 1.5rem;
+        
+        p {
+            span {
+                font-size: .6rem;
+            }
+        }
         
         p[aria-label='fg'] {
             display: none;

@@ -33,9 +33,11 @@ const PlayerBar: FC<IPlayerBarProps> = ({ player, playerSeasonStats }) => (
         </p>
         <p aria-label="fg">
             <span>FG%</span>
-            {playerSeasonStats.fg_pct * 100}%
+            {Math.round(
+                (playerSeasonStats.fg_pct * 100 + Number.EPSILON) * 100
+            ) / 100}
+            %
         </p>
     </Link>
 )
-
 export default PlayerBar

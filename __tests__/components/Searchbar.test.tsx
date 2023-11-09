@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import Searchbar from '../../src/components/searchbar/Searchbar'
 import '@testing-library/jest-dom'
-import { use } from 'react'
 
 describe('<Searchbar />', () => {
     it('should render the searchbar', () => {
@@ -41,7 +40,9 @@ describe('<Searchbar />', () => {
 
     it('should not start with search state if not on search page', () => {
         (usePathname as jest.Mock).mockReturnValueOnce('/')
-        ;(useSearchParams as jest.Mock).mockReturnValueOnce(new URLSearchParams('term=Nikola'))
+        ;(useSearchParams as jest.Mock).mockReturnValueOnce(
+            new URLSearchParams('term=Nikola')
+        )
         render(<Searchbar />)
         const input = screen.getByRole('textbox')
         expect(input).toHaveValue('')
