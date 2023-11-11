@@ -70,6 +70,7 @@ describe('<PlayerBar />', () => {
         expect(screen.getByLabelText('stl')).toHaveTextContent('1.3')
         expect(screen.getByLabelText('blk')).toHaveTextContent('0.7')
         expect(screen.getByLabelText('fg')).toHaveTextContent('63.2%')
+        expect(screen.getByLabelText('fpts')).toBeInTheDocument()
         expect(screen.getByLabelText('team')).toHaveTextContent('Nikola Jokic')
     })
 

@@ -2,6 +2,7 @@ import 'server-only'
 
 import { FC } from 'react'
 import Link from 'next/link'
+import { calculateFantasy } from '@/lib/calculateFantasy'
 import { IPlayerBarProps } from './types'
 import styles from './PlayerBar.module.scss'
 
@@ -37,6 +38,10 @@ const PlayerBar: FC<IPlayerBarProps> = ({ player, playerSeasonStats }) => (
                 (playerSeasonStats.fg_pct * 100 + Number.EPSILON) * 100
             ) / 100}
             %
+        </p>
+        <p aria-label="fpts">
+            <span>FPTS</span>
+            {calculateFantasy(playerSeasonStats)}
         </p>
     </Link>
 )
