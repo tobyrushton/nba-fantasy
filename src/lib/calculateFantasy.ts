@@ -1,6 +1,20 @@
 // calculated using ESPN standard scoring
 // https://www.espn.co.uk/fantasy/basketball/story/_/id/30296896/espn-fantasy-default-points-league-scoring-explained
-export const calculateFantasy = (stats: player.IPlayerSeasonStats): number => {
+interface IFantasyParams {
+    pts: number
+    fgm: number
+    fg3m: number
+    fga: number
+    ftm: number
+    fta: number
+    reb: number
+    ast: number
+    stl: number
+    blk: number
+    turnover: number
+}
+
+export const calculateFantasy = (stats: IFantasyParams): number => {
     let total = 0
     // positive stats
     total += stats.pts
