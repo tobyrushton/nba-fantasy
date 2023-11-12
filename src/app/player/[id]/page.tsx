@@ -4,6 +4,7 @@ import { ReactElement } from 'react'
 import { calculateFantasy } from '@/lib/calculateFantasy'
 import { calculateTS } from '@/lib/calculateTS'
 import { round } from '@/lib/round'
+import { LastTen } from './lastTen'
 import styles from './Player.module.scss'
 
 interface IPlayerProps {
@@ -158,6 +159,7 @@ const Player = async ({ params }: IPlayerProps): Promise<ReactElement> => {
                         <table className={styles.table}>
                             <thead>
                                 <tr>
+                                    <th>Splits</th>
                                     <th>GP</th>
                                     <th>MIN</th>
                                     <th>FGM</th>
@@ -184,6 +186,7 @@ const Player = async ({ params }: IPlayerProps): Promise<ReactElement> => {
                             </thead>
                             <tbody>
                                 <tr>
+                                    <th>Season</th>
                                     <th>{playerSeasonStats.games_played}</th>
                                     <th>{playerSeasonStats.min}</th>
                                     <th>{playerSeasonStats.fgm}</th>
@@ -220,6 +223,12 @@ const Player = async ({ params }: IPlayerProps): Promise<ReactElement> => {
                                     <th>
                                         {calculateFantasy(playerSeasonStats)}
                                     </th>
+                                </tr>
+                                <tr>
+                                    <th>L10</th>
+                                    <LastTen
+                                        lastTen={playerGameLog.slice(-10)}
+                                    />
                                 </tr>
                             </tbody>
                         </table>
