@@ -26,7 +26,7 @@ const getPlayer = async (
     const playerSeasonStats = await res2.json()
 
     const res3 = await fetch(
-        `https://www.balldontlie.io/api/v1/stats?seasons[]=2022&player_ids[]=${id}&per_page=100`
+        `https://www.balldontlie.io/api/v1/stats?seasons[]=2023&player_ids[]=${id}&per_page=100`
     )
     const playerGameLog = await res3.json()
 

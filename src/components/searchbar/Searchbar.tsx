@@ -18,7 +18,7 @@ const Searchbar: FC = () => {
         const query = search ? `?${search}` : ''
         if (pathname.startsWith('/search'))
             router.replace(`${pathname}${query}`)
-        else router.push(`${pathname}search${query}`)
+        else router.push(`/search${query}`)
     }
 
     useEffect(() => {
