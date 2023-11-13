@@ -25,4 +25,21 @@ export const handlers = [
             return HttpResponse.json({ data: filteredStats })
         }
     ),
+    http.get('https://www.balldontlie.io/api/v1/teams', () => {
+        return HttpResponse.json({
+            data: new Array(30)
+                .fill({
+                    abbreviation: 'TEST',
+                    city: 'Test City',
+                    conference: 'East',
+                    division: 'Southeast',
+                    full_name: 'Test Team',
+                    name: 'Team',
+                })
+                .map((team, index) => ({
+                    ...team,
+                    id: index + 1,
+                })),
+        })
+    }),
 ]
