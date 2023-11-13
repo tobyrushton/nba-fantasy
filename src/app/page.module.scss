@@ -1,4 +1,38 @@
-.main {
+@use '../styles/mixins' as *;
+@use '../styles/variables' as *;
+
+.wrapper {
+  padding: 2rem;
+}
+
+.teamList{
+  padding-top: 1rem;
   display: flex;
-  min-height: 100vh;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.teamRow {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  
+  a {
+      @include theme("secondary");
+      border-radius: 15px;
+      padding: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+      width: calc(25% - 7rem);
+      flex: 1 1 0px;
+      width: 0;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .teamRow {
+    a {
+      font-size: .5rem;
+    }
+  }
 }
