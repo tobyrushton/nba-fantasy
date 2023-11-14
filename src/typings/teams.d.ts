@@ -11,4 +11,11 @@ namespace team {
         full_name: string
         name: string
     }
+
+    interface IStatLeader {
+        value: number
+        player_name: string
+        player_id: string
+        headshot: string
+    }
 }
