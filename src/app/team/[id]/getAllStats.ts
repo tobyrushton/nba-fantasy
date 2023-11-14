@@ -49,11 +49,28 @@ export const getAllStats = async (
             playersNamesAndHeadshots.map(async player => {
                 const playerData = await getPlayerData(player[0])
 
+                // if player name doesn't match up on balldontlie.io
+                if (playerData === undefined) {
+                    // removes potential 3rd name such as Jr. or III
+                    const [firstName, secondName] = player[0].split(' ')
+                    const fullName = `${firstName} ${secondName}`
+                    // removes dots that may not be in name on balldontlie.io
+                    return [
+                        await getPlayerData(fullName.replaceAll('.', '')),
+                        player[1],
+                    ]
+                }
+
                 return [playerData, player[1]]
             })
         )
 
-    const playerIDs: string[] = playerDataAndHeadshots.map(
+    // remove players that did not match up on balldontlie.io
+    const filteredPlayerDataAndHeadshots = playerDataAndHeadshots.filter(
+        player => player[0] !== undefined
+    )
+
+    const playerIDs: string[] = filteredPlayerDataAndHeadshots.map(
         player => player[0].id
     )
 
@@ -63,7 +80,7 @@ export const getAllStats = async (
         player.IPlayerSeasonStats,
         player.IPlayer,
         string,
-    ][] = playerDataAndHeadshots.map(playerDataAndHeadshot => {
+    ][] = filteredPlayerDataAndHeadshots.map(playerDataAndHeadshot => {
         const playerSeasonAverage = playerSeasonStats.find(
             playerSeasonStat =>
                 playerSeasonStat.player_id ===
