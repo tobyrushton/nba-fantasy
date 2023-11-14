@@ -4,6 +4,7 @@ import { ReactElement } from 'react'
 import { calculateFantasy } from '@/lib/calculateFantasy'
 import { calculateTS } from '@/lib/calculateTS'
 import { round } from '@/lib/round'
+import Link from 'next/link'
 import { LastTen } from './lastTen'
 import styles from './Player.module.scss'
 
@@ -46,7 +47,11 @@ const Player = async ({ params }: IPlayerProps): Promise<ReactElement> => {
                         {player.first_name} {player.last_name}
                     </p>
                     <ul>
-                        <li>{player.team.name}</li>
+                        <li>
+                            <Link href={`/team/${player.team.id}`}>
+                                {player.team.name}
+                            </Link>
+                        </li>
                         <li>{player.position}</li>
                     </ul>
                 </span>
