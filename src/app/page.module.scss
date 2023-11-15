@@ -5,34 +5,42 @@
   padding: 2rem;
 }
 
-.teamList{
-  padding-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.teamRow {
+.teamsContainer {
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  
+  margin-top: 2rem;
+}
+
+.conferenceContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1 1 auto;
+}
+
+.division {
+  @include theme('secondary');
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  border-radius: 15px;
+  border-color: $accent-color;
+  padding: 1rem;
+  gap: .5rem;
+
   a {
-      @include theme("secondary");
-      border-radius: 15px;
-      padding: 1rem;
-      text-decoration: none;
-      cursor: pointer;
-      width: calc(25% - 7rem);
-      flex: 1 1 0px;
-      width: 0;
+    text-decoration: none;
+    color: $text-color;
+  }
+
+  ul {
+    margin-left: 1rem;
   }
 }
 
-@media screen and (max-width: 575px) {
-  .teamRow {
-    a {
-      font-size: .5rem;
-    }
+@media screen and (max-width: 600px) {
+  .teamsContainer {
+    flex-direction: column;
   }
 }
