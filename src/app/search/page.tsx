@@ -27,7 +27,12 @@ const Search = async ({
     ][] = await Promise.all(
         players.map(async player => {
             const statsRes = await fetch(
-                `https://www.balldontlie.io/api/v1/season_averages?season=2023&player_ids[]=${player.id}`
+                `https://www.balldontlie.io/api/v1/season_averages?season=2023&player_ids[]=${player.id}`,
+                {
+                    next: {
+                        revalidate: 3600,
+                    },
+                }
             )
             const statsData = (await statsRes.json()) as {
                 data: player.IPlayerSeasonStats[]

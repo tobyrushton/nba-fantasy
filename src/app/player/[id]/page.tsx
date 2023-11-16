@@ -23,12 +23,22 @@ const getPlayer = async (
     const player = await res.json()
 
     const res2 = await fetch(
-        `https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${id}`
+        `https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${id}`,
+        {
+            next: {
+                revalidate: 86400,
+            },
+        }
     )
     const playerSeasonStats = await res2.json()
 
     const res3 = await fetch(
-        `https://www.balldontlie.io/api/v1/stats?seasons[]=2023&player_ids[]=${id}&per_page=100`
+        `https://www.balldontlie.io/api/v1/stats?seasons[]=2023&player_ids[]=${id}&per_page=100`,
+        {
+            next: {
+                revalidate: 86400,
+            },
+        }
     )
     const playerGameLog = await res3.json()
 

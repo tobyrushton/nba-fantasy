@@ -25,7 +25,12 @@ const getPlayerSeasonStats = async (
         requestString += `player_ids[]=${ids[i]}&`
     }
 
-    const res = await fetch(requestString)
+    const res = await fetch(requestString, {
+        next: {
+            revalidate: 3600,
+        },
+    })
+
     const data = await res.json()
 
     return data.data
