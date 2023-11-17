@@ -92,6 +92,22 @@
     }
 }
 
+.loadingItem{
+    @include loadingBar();
+}
+
+.loadingPlayer{
+    filter: brightness(0);
+}
+
+.loadingBottomImage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 5rem;
+    flex: 0 1 33%;
+}
+
 @media screen and (max-width: 1100px) {
     .leader {
         flex: 0 1 calc((80vw / 2) - 3rem);
