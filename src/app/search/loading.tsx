@@ -1,7 +1,7 @@
 import 'server-only'
 
 import { FC } from 'react'
-import { LoadingSpinner } from "@/components/LoadingSpinner/LoadingSpinner"
+import { LoadingSpinner } from '@/components/LoadingSpinner/LoadingSpinner'
 import styles from './Search.module.scss'
 
 const Loading: FC = () => (
