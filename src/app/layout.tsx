@@ -2,7 +2,7 @@ import 'server-only'
 
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 import Searchbar from '@/components/searchbar/Searchbar'
 import '../styles/globals.scss'
 
@@ -17,7 +17,9 @@ const Layout = ({ children }: { children: ReactNode }): ReactNode => {
     return (
         <html lang="en-gb">
             <body className={inter.className}>
-                <Searchbar />
+                <Suspense>
+                    <Searchbar />
+                </Suspense>
                 {children}
             </body>
         </html>

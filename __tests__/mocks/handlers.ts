@@ -12,16 +12,19 @@ export const handlers = [
             const filteredPlayers = playerData.filter(player =>
                 `${player.first_name} ${player.last_name}`.includes(search)
             )
-            return HttpResponse.json({ data: filteredPlayers })
+            return HttpResponse.json({ data: filteredPlayers, meta: { total_pages: 1 } })
         }
     ),
     http.get(
         'https://www.balldontlie.io/api/v1/season_averages',
         async ({ request }) => {
-            const id = new URL(request.url).searchParams.get('player_ids[]')
-            const filteredStats = playerStatsData.filter(
-                stats => stats.player_id.toString() === id
-            )
+            const ids = new URL(request.url).searchParams.getAll('player_ids[]')
+            const filteredStats = ids.map(id => {
+                const stats = playerStatsData.filter(
+                    stats => stats.player_id.toString() === id
+                )
+                return stats[0]
+            })
             return HttpResponse.json({ data: filteredStats })
         }
     ),

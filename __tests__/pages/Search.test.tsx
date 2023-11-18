@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import Search from '@/app/search/page'
+import { PlayerList } from '@/app/search/PlayerList'
 import Layout from '@/app/layout'
 import { server } from '../mocks/node'
 import resolvedComponent from '../resolvedComponent'
@@ -11,8 +11,8 @@ describe('/search', () => {
     afterAll(() => server.close())
 
     it('renders searchbar with page with empty search term', async () => {
-        const ResolvedSearch = await resolvedComponent(Search, {
-            searchParams: { term: 'Nikola Jokic' },
+        const ResolvedSearch = await resolvedComponent(PlayerList, {
+            search: 'Nikola Jokic',
         })
 
         render(
@@ -28,8 +28,8 @@ describe('/search', () => {
     })
 
     it('renders multiple players with the same name', async () => {
-        const ResolvedSearch = await resolvedComponent(Search, {
-            searchParams: { term: 'Nikola' },
+        const ResolvedSearch = await resolvedComponent(PlayerList, {
+            search: 'Nikola',
         })
 
         render(

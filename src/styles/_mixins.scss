@@ -16,3 +16,10 @@
         color: var.$text_color;
     }
 }
+
+@mixin loadingBar() {
+    display: flex;
+    background-color: var.$accent-color;
+    border-radius: .25rem;
+    height: 1.5rem;
+}
