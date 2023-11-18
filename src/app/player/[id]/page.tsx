@@ -117,7 +117,7 @@ const Player = async ({ params }: IPlayerProps): Promise<ReactElement> => {
                 </span>
             </div>
             <div className={styles.body}>
-                <div>
+                <div className={styles.bodyItem}>
                     <h2>Game Log</h2>
                     <span className={styles.tableWrapper}>
                         <table className={styles.table}>
@@ -168,7 +168,7 @@ const Player = async ({ params }: IPlayerProps): Promise<ReactElement> => {
                         </table>
                     </span>
                 </div>
-                <div>
+                <div className={styles.bodyItem}>
                     <h2>Stats</h2>
                     <span className={styles.tableWrapper}>
                         <table className={styles.table}>
