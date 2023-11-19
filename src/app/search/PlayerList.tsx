@@ -96,6 +96,10 @@ export const PlayerList: FC<IPlayerListProps> = async ({ search }) => {
                     key={`player${player.id}`}
                 />
             ))}
+            {
+                // if no players are found, display message
+                playersWithStats.length === 0 && <p>No players found</p>
+            }
         </div>
     )
 }
