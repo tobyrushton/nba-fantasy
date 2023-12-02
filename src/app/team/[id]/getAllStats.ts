@@ -1,7 +1,11 @@
+import { notFound } from 'next/navigation'
 import { getRoster } from './getRoster'
 
 const getTeam = async (id: string): Promise<team.ITeam> => {
     const res = await fetch(`https://www.balldontlie.io/api/v1/teams/${id}`)
+    if (res.status === 404) {
+        notFound()
+    }
     const data = await res.json()
 
     return data
