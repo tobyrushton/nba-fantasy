@@ -2,28 +2,42 @@ import { notFound } from 'next/navigation'
 import { getRoster } from './getRoster'
 
 const getTeam = async (id: string): Promise<team.ITeam> => {
-    const res = await fetch(`https://www.balldontlie.io/api/v1/teams/${id}`)
+    const res = await fetch(`https://api.balldontlie.io/v1/teams/${id}`, {
+        headers: {
+            Authorization: `${process.env.BALL_DONT_LIE_API_KEY}`,
+        },
+    })
     if (res.status === 404) {
         notFound()
     }
     const data = await res.json()
 
-    return data
+    return data.data
 }
 
 const getPlayerData = async (name: string): Promise<player.IPlayer> => {
     const res = await fetch(
-        `https://www.balldontlie.io/api/v1/players?search=${name}`
+        `https://api.balldontlie.io/v1/players?search=${name.split(' ')[0]}`,
+        {
+            headers: {
+                Authorization: `${process.env.BALL_DONT_LIE_API_KEY}`,
+            },
+        }
     )
-    const data = await res.json()
+    const { data } = await res.json()
 
-    return data.data[0]
+    return (
+        (data as { last_name: string }[]).find(
+            plyer => plyer.last_name === name.split(' ')[1]
+        ) ?? data[0]
+    )
 }
 
 const getPlayerSeasonStats = async (
     ids: string[]
 ): Promise<player.IPlayerSeasonStats[]> => {
-    let requestString = 'https://www.balldontlie.io/api/v1/season_averages?'
+    let requestString =
+        'https://api.balldontlie.io/v1/season_averages?season=2023&'
 
     for (let i = 0; i < ids.length; i++) {
         requestString += `player_ids[]=${ids[i]}&`
@@ -33,10 +47,12 @@ const getPlayerSeasonStats = async (
         next: {
             revalidate: 3600,
         },
+        headers: {
+            Authorization: `${process.env.BALL_DONT_LIE_API_KEY}`,
+        },
     })
 
     const data = await res.json()
-
     return data.data
 }
 

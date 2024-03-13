@@ -19,12 +19,18 @@ type TMeta = {
 export const PlayerList: FC<IPlayerListProps> = async ({ search }) => {
     // requests data for all matching users
     const response = await fetch(
-        `https://www.balldontlie.io/api/v1/players?search=${search}&per_page=100`
+        `https://api.balldontlie.io/v1/players?search=${search}&per_page=100`,
+        {
+            headers: {
+                Authorization: `${process.env.BALL_DONT_LIE_API_KEY}`,
+            },
+        }
     )
     const data = (await response.json()) as {
         data: player.IPlayer[]
         meta: TMeta
     }
+
     const players = data.data
 
     // if more pages exist, continue fetching
@@ -32,9 +38,14 @@ export const PlayerList: FC<IPlayerListProps> = async ({ search }) => {
         await Promise.all(
             new Array(data.meta.total_pages - 1).fill(0).map(async (_, i) => {
                 const res = await fetch(
-                    `https://www.balldontlie.io/api/v1/players?search=${search}&per_page=100&page=${
+                    `https://api.balldontlie.io/v1/players?search=${search}&per_page=100&page=${
                         i + 2
-                    }`
+                    }`,
+                    {
+                        headers: {
+                            Authorization: `${process.env.BALL_DONT_LIE_API_KEY}`,
+                        },
+                    }
                 )
                 const playerData = (await res.json()) as {
                     data: player.IPlayer[]
@@ -58,7 +69,7 @@ export const PlayerList: FC<IPlayerListProps> = async ({ search }) => {
     await Promise.all(
         splitPlayers.map(async playerChunk => {
             let requestString =
-                'https://www.balldontlie.io/api/v1/season_averages?'
+                'https://api.balldontlie.io/v1/season_averages?season=2023&'
 
             playerChunk.forEach(player => {
                 requestString += `player_ids[]=${player.id}&`
@@ -67,6 +78,9 @@ export const PlayerList: FC<IPlayerListProps> = async ({ search }) => {
             const res2 = await fetch(requestString, {
                 next: {
                     revalidate: 3600,
+                },
+                headers: {
+                    Authorization: `${process.env.BALL_DONT_LIE_API_KEY}`,
                 },
             })
 
