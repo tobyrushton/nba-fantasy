@@ -19,30 +19,40 @@ const getPlayer = async (
 ): Promise<
     [player.IPlayer, player.IPlayerSeasonStats, player.IPlayerGameStats[]]
 > => {
-    const res = await fetch(`https://www.balldontlie.io/api/v1/players/${id}`)
+    const res = await fetch(`https://api.balldontlie.io/v1/players/${id}`, {
+        headers: {
+            Authorization: `${process.env.BALL_DONT_LIE_API_KEY}`,
+        },
+    })
     const player = await res.json()
 
     const res2 = await fetch(
-        `https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${id}`,
+        `https://api.balldontlie.io/v1/season_averages?player_ids[]=${id}&season=2023`,
         {
             next: {
                 revalidate: 86400,
+            },
+            headers: {
+                Authorization: `${process.env.BALL_DONT_LIE_API_KEY}`,
             },
         }
     )
     const playerSeasonStats = await res2.json()
 
     const res3 = await fetch(
-        `https://www.balldontlie.io/api/v1/stats?seasons[]=2023&player_ids[]=${id}&per_page=100`,
+        `https://api.balldontlie.io/v1/stats?seasons[]=2023&player_ids[]=${id}&per_page=100`,
         {
             next: {
                 revalidate: 86400,
+            },
+            headers: {
+                Authorization: `${process.env.BALL_DONT_LIE_API_KEY}`,
             },
         }
     )
     const playerGameLog = await res3.json()
 
-    return [player, playerSeasonStats.data[0], playerGameLog.data]
+    return [player.data, playerSeasonStats.data[0], playerGameLog.data]
 }
 
 const Player = async ({ params }: IPlayerProps): Promise<ReactElement> => {

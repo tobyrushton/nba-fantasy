@@ -3,7 +3,7 @@ import { playerData, playerStatsData } from './data'
 
 export const handlers = [
     http.get(
-        'https://www.balldontlie.io/api/v1/players',
+        'https://api.balldontlie.io/v1/players',
         async ({ request }) => {
             const search = new URL(request.url).searchParams.get('search')
             if (!search) {
@@ -16,7 +16,7 @@ export const handlers = [
         }
     ),
     http.get(
-        'https://www.balldontlie.io/api/v1/season_averages',
+        'https://api.balldontlie.io/v1/season_averages',
         async ({ request }) => {
             const ids = new URL(request.url).searchParams.getAll('player_ids[]')
             const filteredStats = ids.map(id => {
@@ -28,7 +28,7 @@ export const handlers = [
             return HttpResponse.json({ data: filteredStats })
         }
     ),
-    http.get('https://www.balldontlie.io/api/v1/teams', () => {
+    http.get('https://api.balldontlie.io/v1/teams', () => {
         return HttpResponse.json({
             data: new Array(30)
                 .fill({

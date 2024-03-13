@@ -23,6 +23,7 @@ export const LeaderItem: FC<ILeaderItemProps> = ({ players, statName }) => (
                 src={players[0].headshot}
                 alt={players[0].player_name}
                 fill
+                loading="lazy"
             />
         </Link>
         <div className={styles.leaderBottom}>
@@ -37,6 +38,7 @@ export const LeaderItem: FC<ILeaderItemProps> = ({ players, statName }) => (
                         src={player.headshot}
                         alt={player.player_name}
                         fill
+                        loading="lazy"
                     />
                 </Link>
             ))}

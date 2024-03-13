@@ -5,7 +5,11 @@ import Link from 'next/link'
 import styles from './page.module.scss'
 
 const getData = async (): Promise<team.ITeam[]> => {
-    const res = await fetch('https://www.balldontlie.io/api/v1/teams')
+    const res = await fetch('https://api.balldontlie.io/v1/teams', {
+        headers: {
+            Authorization: `${process.env.BALL_DONT_LIE_API_KEY}`,
+        },
+    })
     const data = await res.json()
     return data.data
 }
@@ -17,6 +21,7 @@ type TDivisionNames =
     | 'Northwest'
     | 'Pacific'
     | 'Southwest'
+
 interface IDivision {
     name: TDivisionNames
     teams: team.ITeam[]
