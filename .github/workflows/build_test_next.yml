@@ -9,7 +9,7 @@ on:
     branches: [ main ]
   
 env:
-  BALL_DONT_LIE_API_URL: ${{ secrets.BALL_DONT_LIE_API_URL }}
+  BALL_DONT_LIE_API_URL: ${{ secrets.BALL_DONT_LIE_API_KEY }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
